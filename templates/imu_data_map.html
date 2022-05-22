@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kaatru</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+</head>
+
+<body>
+    <div>
+        <h2> IMU Data Information</h2>
+    </div>
+    <div class="float-container">
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Device Name</td>
+                <td>{{device}}</td>
+            </tr>
+            <tr>
+                <td>Measured Value</td>
+                <td>{{param}}</td>
+            </tr>
+            <tr>
+                <td>Data Quality</td>
+                <td>{{data_quality}}</td>
+            </tr>
+            <tr>
+                <td>Mean</td>
+                <td>{{data_mean}}</td>
+            </tr>
+            <tr>
+                <td>Standard Deviation</td>
+                <td>{{data_std}}</td>
+            </tr>
+            <tr>
+                <td>Variance</td>
+                <td>{{data_var}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <iframe src="/static/folium.html" frameborder="0" height="500px" width="70%"></iframe>
+
+</body>
+
+</html>

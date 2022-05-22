@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kaatru</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+</head>
+
+<body>
+    <h2>Trip Sensor Data Analyser</h2>
+
+    <div>
+        <form action="{{ url_for('sensor_home') }}" method="post">
+            <label for="trip-start-time">Trip start time: </label>
+            <input type="datetime-local" id="trip-start-time" name="trip-start-time" value="2022-05-26T08:30"
+                min="2020-01-01T00:00" max="2025-12-31T00:00">
+            <br>
+            <label for="trip-end-time">Trip end time: </label>
+            <input type="datetime-local" id="trip-end-time" name="trip-end-time" value="2022-05-26T09:30"
+                min="2020-01-01T00:00" max="2025-12-31T00:00">
+            <br>
+            <label for="device">Device name:</label>
+            <input type="text" id="device" name="device" placeholder="M3">
+            <br>
+            <label for="Parameter">Parameter:</label>
+            <br>
+            <select name="parameter" id="parameter">
+                <option value="DF_PM1">PM1</option>
+                <option value="DF_PM25">PM2.5</option>
+                <option value="DF_PM10">PM10</option>
+                <option value="DHT_RH">RH_DHT</option>
+                <option value="DHT_TEMP">TEMP_DHT</option>
+                <option value="AHT_RH">RH_AHT</option>
+                <option value="AHT_TEMP">TEMP_AHT</option>
+            </select>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
