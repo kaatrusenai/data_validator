@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, request, jsonify
 from data_fetcher import DataFetcher
 from folium import Map, CircleMarker
@@ -9,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-db = DataFetcher(os.getenv('MONGO_URI'), os.getenv('MONGO_DB'))
+db = DataFetcher('mongodb://campusadmin:testdev44@3.109.93.19:27017/', 'admin')
 
 
 def get_utc_unix(date_string, time_format="%Y-%m-%dT%H:%M"):
