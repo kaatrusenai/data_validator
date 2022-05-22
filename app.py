@@ -127,3 +127,7 @@ def imu():
 @app.route('/map')
 def folium_map():
     return render_template('folium.html')
+
+
+if __name__ == "__main__":
+    app.run()
