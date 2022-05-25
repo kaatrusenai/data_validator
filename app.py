@@ -96,11 +96,6 @@ def get_data(data_for: str, data_info: dict, key: str):
     return
 
 
-@app.errorhandler(404)
-def not_found(e):
-    return jsonify(message=str(e)), 404
-
-
 @app.route("/")
 def home():
     return render_template('index.html')
