@@ -42,7 +42,11 @@ class DataFetcher:
         collection = [col for col in _collections if (
                 device in col) and (col.endswith("senloc"))]
 
-        collection_data = self.client[self._DATABASE][collection[0]]
+        try:
+            collection_data = self.client[self._DATABASE][collection[0]]
+        except IndexError:
+            local_store[key] = jsonify(message='No data found for the given device')
+            return
         output = list(collection_data.find(query, {'_id': 0, 'srvtime': 1, 'value.lat': 1, 'value.lon': 1,
                                                    f'value.{param}': 1}))
         if len(output) != 0:
@@ -60,7 +64,11 @@ class DataFetcher:
         collection = [col for col in _collections if (
                 device in col) and (col.endswith("accloc"))]
 
-        collection_data = self.client[self._DATABASE][collection[0]]
+        try:
+            collection_data = self.client[self._DATABASE][collection[0]]
+        except IndexError:
+            local_store[key] = jsonify(message='No data found for the given device')
+            return
         output = list(collection_data.find(query, {'_id': 0, 'srvtime': 1, 'value.LatAcc': 1, 'value.LonAcc': 1,
                                                    f'value.{param.replace("_Mean", "")}': 1}))
         if len(output) != 0:

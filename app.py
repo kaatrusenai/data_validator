@@ -12,13 +12,14 @@ from threading import Timer, Thread
 app = Flask(__name__)
 CORS(app)
 
-db = DataFetcher('mongodb://campusadmin:testdev44@3.109.93.19:27017/', 'admin')
+db = DataFetcher('mongodb://mumbai11:study77#@3.7.66.36/', 'admin')
 
 
 def set_timeout(key):
     local_store[key] = None
     time.sleep(25)
     if local_store.get(key) is not None:
+        Timer(5, remove_key, [key]).start()
         return local_store.get(key)
     return jsonify(key=key), 410
 
@@ -131,4 +132,4 @@ def folium_map():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
