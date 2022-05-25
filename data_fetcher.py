@@ -2,7 +2,8 @@ from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError
 from imu_preprocessor import get_row_wise_stat
 import pandas as pd
-from flask import render_template
+from flask import jsonify
+from store import local_store
 
 
 class DataFetcher:
@@ -23,17 +24,19 @@ class DataFetcher:
             print(f"[-] TimeoutError: {err}")
             return self.__init_db()
 
-    def __check_connection(self):
+    def __check_connection(self, key: str):
         try:
             if self.client.server_info()['ok'] == 1:
                 pass
             else:
-                return render_template('error.html', message='There seems to be an issue on our side')
+                local_store[key] = jsonify(message='There seems to be an issue on our side'), 400
+                return
         except (KeyError, ServerSelectionTimeoutError):
-            return render_template('error.html', message='There seems to be an issue on our side')
+            local_store[key] = jsonify(message='There seems to be an issue on our side'), 400
+            return
 
-    def sensor_query(self, device, query, param):
-        self.__check_connection()
+    def sensor_query(self, device, query, param, key):
+        self.__check_connection(key)
         _collections = self.client[self._DATABASE].list_collection_names()
 
         collection = [col for col in _collections if (
@@ -42,15 +45,16 @@ class DataFetcher:
         collection_data = self.client[self._DATABASE][collection[0]]
         output = list(collection_data.find(query, {'_id': 0, 'srvtime': 1, 'value.lat': 1, 'value.lon': 1,
                                                    f'value.{param}': 1}))
-        print(output)
         if len(output) != 0:
             df = pd.json_normalize(output)
             df.columns = [name.replace('value.', '') for name in list(df.columns.tolist())]
             return df
-        return render_template('error.html', message='No data found for the given time range')
+        else:
+            local_store[key] = jsonify(message='Requested parameter is not available in the requested device'), 400
+            return
 
-    def imu_query(self, device, query, param):
-        self.__check_connection()
+    def imu_query(self, device, query, param, key):
+        self.__check_connection(key)
         _collections = self.client[self._DATABASE].list_collection_names()
 
         collection = [col for col in _collections if (
@@ -66,4 +70,6 @@ class DataFetcher:
             df["lon"] = pd.to_numeric(df["lon"])
             df[param] = get_row_wise_stat(col=param.replace("_Mean", "").lower(), data=df)
             return df
-        return render_template('error.html', message='No data found for the given time range')
+        else:
+            local_store[key] = jsonify(message='Requested parameter is not available in the requested device'), 400
+            return
