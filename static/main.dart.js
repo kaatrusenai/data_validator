@@ -74621,7 +74621,7 @@ p=t.p
 return A.di(A.dh(A.a([B.a00,A.ct(A.a([n,B.eK,A.di(new A.nY(B.wo,B.P_,A.aBW(l,"Date",A.nP(o,B.DS,o,o,o,o,o,o,!0,B.DS,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,A.nF(B.z,o,B.aO),"Select",o,o,o,o,!1,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o,o),new A.aE(j,!1),new A.aE(k,!1),new A.aV(A.dR(r),A.r8(r)),s,B.wo,q,B.fd,!0),o),40,m.a.a/3.3)],p),B.at,B.cS,B.A)],p),B.J,B.C,B.A,o),70,o)}}
 A.wP.prototype={
 ao(){var s,r=t.s,q=A.a(["Select","M1","M2","M3","M4","M5","M6","M7"],r),p=A.a(["Select","DF_PM1","DF_PM25","DF_PM10","DHT_RH","DHT_TEMP","AHT_RH","AHT_TEMP"],r)
-r=A.a(["Select","AcX_Mean","AcY_Mean","AcZ_Mean","GcX_Mean","GcY_Mean","GcZ_Mean","Temp_Mean"],r)
+r=A.a(["Select","AcX_Mean","AcY_Mean","AcZ_Mean","GcX_Mean","GcY_Mean","GcZ_Mean","Tmp_Mean"],r)
 s=$.aK()
 return new A.Bc(q,p,r,new A.iI(B.bZ,s),new A.iI(B.bZ,s),new A.cA(!1,s),null,null,B.m)}}
 A.Bc.prototype={

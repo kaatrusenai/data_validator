@@ -49,6 +49,7 @@ class DataFetcher:
             return
         output = list(collection_data.find(query, {'_id': 0, 'srvtime': 1, 'value.lat': 1, 'value.lon': 1,
                                                    f'value.{param}': 1}))
+        print(output)
         if len(output) != 0:
             df = pd.json_normalize(output)
             df.columns = [name.replace('value.', '') for name in list(df.columns.tolist())]
@@ -71,6 +72,7 @@ class DataFetcher:
             return
         output = list(collection_data.find(query, {'_id': 0, 'srvtime': 1, 'value.LatAcc': 1, 'value.LonAcc': 1,
                                                    f'value.{param.replace("_Mean", "")}': 1}))
+        print(output)
         if len(output) != 0:
             df = pd.json_normalize(output)
             df.columns = [name.replace('value.', '').replace('Acc', '').lower() for name in list(df.columns.tolist())]
