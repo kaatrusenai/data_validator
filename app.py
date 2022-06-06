@@ -106,6 +106,7 @@ def home():
 def sensor(key):
     if key == 'none':
         gen_key = str(uuid.uuid4())
+        get_data('sen', request.args, gen_key)
         Thread(target=get_data, args=['sen', request.args, gen_key]).start()
         return set_timeout(gen_key)
     if local_store.get(key) is not None:
@@ -132,4 +133,4 @@ def folium_map():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
